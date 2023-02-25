@@ -19,4 +19,4 @@ OBS: O butão de importar ele ira pegar o dado UFC.CSV e colocar no serve MYSQL(
 
 
 ## DashBoard
-![video]()
+![video](https://user-images.githubusercontent.com/76600121/221320512-e9d3753b-2e95-451a-b155-a420abc6f11b.mp4)
