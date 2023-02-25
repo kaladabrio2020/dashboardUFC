@@ -8,6 +8,7 @@
   * Bibliotecas
     * Pandas
     * Streamlit
+    * streamlit_option_menu
     * Plotly
     * Mysql.connector
 
