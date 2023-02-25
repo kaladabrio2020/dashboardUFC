@@ -6,6 +6,7 @@
 ## Linguagem de programção
 * Python 
   * Bibliotecas
+    * Pickle
     * Pandas
     * Streamlit
     * streamlit_option_menu
