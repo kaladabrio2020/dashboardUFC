@@ -22,7 +22,6 @@ def main():
 
 
 def Tab1():
-
     col1, col2 = st.columns([0.6,0.6])
     with col1:
         Unidade = col1.selectbox(

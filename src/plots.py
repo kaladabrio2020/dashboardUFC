@@ -9,7 +9,6 @@ def BarplotDesistenciaAlunos(dataset):
             orientation = 'h',
             x = dataset['status'],
             y = dataset['nome_curso'],            
-            text = dataset['status'],
             marker=dict(
                 color="#f0be09"
             ),
@@ -17,26 +16,38 @@ def BarplotDesistenciaAlunos(dataset):
     )
              
     fig.update_layout(
-        plot_bgcolor = '#ffffff' ,
-        template  ='simple_white',
-        hovermode ='x' , 
-
+        plot_bgcolor = '#0E1117' ,
+        template     ='simple_white',
+        hovermode    ="y unified" , 
+        
         width  = 900,
         height = 450,
 
+        ### Mudar o titulo
         title = dict(
-            font=dict(
-                family='Fire Code',
-                size=20
+            font = dict(
+                family ='Fire Code',
+                size   = 20
             ),
         text = 'Desistência de Alunos' 
         ),
-             
-        font=dict(
-            family='Droid Sans Mono',
-            size=14,
-            color="black"
+        ### Font
+        font = dict(
+            family = 'Droid Sans Mono',
+            size   = 14,
+            color  = "black"
         ),
+
+        ### eixos do grafico
+        xaxis = dict(
+            linewidth = 2,
+            linecolor ='white'  
+            
+        ),
+        yaxis = dict(
+            linewidth = 2,
+            linecolor = 'white'  
+        )
     )
     return fig
 
@@ -44,29 +55,29 @@ def BarplotDesistenciaAlunos(dataset):
 def BarplotDesistenciaGenero(dataset):
     index  = 0
     fig    = go.Figure()
-    colors = ['#ff85a1','#73d2de'] 
+    colors = ['#ff85a1','#73d2de']
+
     for genero in ['Feminino','Masculino']:
         data = dataset.loc[dataset['sexo'] == genero[0]]
         fig.add_trace(
             go.Bar(  
                 orientation = 'h',
-                name=genero,
-                x = data['status'],
-                y = data['nome_curso'],            
-                text = data['status'],
-                marker=dict(
-                    color=colors[index]
+                name =genero,
+                x    = data['status'],
+                y    = data['nome_curso'],            
+                marker = dict(
+                    color = colors[index]
                 ),
             )
         )
         index +=1
           
     fig.update_layout(
-        barmode='stack',
-        plot_bgcolor = '#ffffff' ,
-        template  ='simple_white',
-        hovermode ='x' , 
-        height = 520,
+        barmode      ='stack',
+        plot_bgcolor = '#0E1117' ,
+        template     ='simple_white',
+        hovermode    ="y unified" , 
+        height = 450,
         title = dict(
             font=dict(
                 family='Fire Code',
@@ -79,6 +90,16 @@ def BarplotDesistenciaGenero(dataset):
             size=14,
             color="black"
         ),
+        ### eixos do grafico
+        xaxis=dict(
+            linewidth = 2,
+            linecolor ='white'  
+            
+        ),
+        yaxis=dict(
+            linewidth = 2,
+            linecolor='white'  
+        )
     )
     return fig
 
@@ -107,7 +128,6 @@ def PiePlotGeneroDesistencia(dataset):
     return fig
 
 def PiePlotIgressoDesistencia(dataset):
-    print(dataset)
     if len(dataset.loc[dataset['modalidade_considerada']!='Nenhuma']) == 0:
         fig = px.pie(
             dataset,
@@ -118,7 +138,9 @@ def PiePlotIgressoDesistencia(dataset):
         fig = px.sunburst(
             dataset,
             path=['forma_ingresso','modalidade_considerada'],
-            values  ='status'
+            values  ='status',
+            color='forma_ingresso',
+            title='Por forma de ingresso ou modalidade(a partir de 2019)'
         )
     return fig
 

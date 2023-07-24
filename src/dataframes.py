@@ -21,7 +21,7 @@ def TotalDeEvasaoPorUnidade(Unidade,Ano):
         by='nome_curso'
     )['status'].count()
 
-    return data.reset_index()
+    return data.reset_index().sort_values(by='status')
 
 
 def TotalDeEvasaoPorUnidadeGenero(Unidade,Ano):
@@ -37,7 +37,7 @@ def TotalDeEvasaoPorUnidadeGenero(Unidade,Ano):
         by=['nome_curso','sexo']
     )['status'].count()
 
-    return data.reset_index()
+    return data.reset_index().sort_values(by='status')
 
 def TotalDeEvasaoPorUnidadeModalidade(Unidade,Ano):
     pd.set_option('mode.chained_assignment', None)
