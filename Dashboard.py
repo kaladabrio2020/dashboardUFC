@@ -14,9 +14,16 @@ def main():
         layout      ="wide",
     )
     st.title('Dashboard evasão universitária')
-    
-    col1, col2 = st.columns([0.6,0.6])
+    tab1,tab2  = st.tabs(['Dashboard Main','Serie Historica'])
 
+    with tab1: Tab1()
+    with tab2: st.write('pi')
+
+
+
+def Tab1():
+
+    col1, col2 = st.columns([0.6,0.6])
     with col1:
         Unidade = col1.selectbox(
             label   = 'Unidade',
@@ -29,11 +36,9 @@ def main():
         Ano  = col2.select_slider(
             label   = 'Ano de saidas',
             options = [ano for ano in range(1998,2024)]
-        )   
-
+        )    
 
     col1 ,col2 = st.columns([2,0.8])
-
     with col1:
         if (not(Genero)):
             col1.plotly_chart(
@@ -47,12 +52,19 @@ def main():
                     df.TotalDeEvasaoPorUnidadeGenero(Unidade,Ano)
                     )
                 )
+        col1.plotly_chart(
+            pl.PiePlotIgressoDesistencia(
+                df.TotalDeEvasaoPorUnidadeModalidade(Unidade,Ano)
+            )
+        )
+
     with col2:
         col2.plotly_chart(
             pl.PiePlotGeneroDesistencia(
                 df.TotalDeEvasaoPorUnidadeGenero(Unidade,Ano)
                 )
         )    
+
 
 
             

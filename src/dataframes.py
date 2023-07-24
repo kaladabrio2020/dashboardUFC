@@ -39,4 +39,20 @@ def TotalDeEvasaoPorUnidadeGenero(Unidade,Ano):
 
     return data.reset_index()
 
+def TotalDeEvasaoPorUnidadeModalidade(Unidade,Ano):
+    pd.set_option('mode.chained_assignment', None)
 
+    data  = Dataset()
+
+    datac = data.loc[
+            (data['ano_saida']    == str(Ano))   &
+            (data['nome_unidade'] == Unidade )   &
+            (data['status']       == 'CANCELADO')
+    ]
+    datac = datac.groupby(
+        by = ['nome_curso','forma_ingresso','modalidade_considerada']
+    )['status'].count().reset_index()
+
+    datac['modalidade_considerada'].loc[datac['modalidade_considerada'] == ' '] = 'Nenhuma'
+    
+    return datac

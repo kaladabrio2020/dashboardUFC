@@ -1,3 +1,4 @@
+import plotly.express as px
 import plotly.graph_objects as go
 
 def BarplotDesistenciaAlunos(dataset):
@@ -65,7 +66,7 @@ def BarplotDesistenciaGenero(dataset):
         plot_bgcolor = '#ffffff' ,
         template  ='simple_white',
         hovermode ='x' , 
-        height = 650,
+        height = 520,
         title = dict(
             font=dict(
                 family='Fire Code',
@@ -105,4 +106,19 @@ def PiePlotGeneroDesistencia(dataset):
     )
     return fig
 
+def PiePlotIgressoDesistencia(dataset):
+    print(dataset)
+    if len(dataset.loc[dataset['modalidade_considerada']!='Nenhuma']) == 0:
+        fig = px.pie(
+            dataset,
+            names ='forma_ingresso',
+            values= 'status'
+        )
+    else:        
+        fig = px.sunburst(
+            dataset,
+            path=['forma_ingresso','modalidade_considerada'],
+            values  ='status'
+        )
+    return fig
 
