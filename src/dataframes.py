@@ -56,3 +56,14 @@ def TotalDeEvasaoPorUnidadeModalidade(Unidade,Ano):
     datac['modalidade_considerada'].loc[datac['modalidade_considerada'] == ' '] = 'Nenhuma'
     
     return datac
+
+
+def SerieEvasãoPorUnidade():
+    data = Dataset().loc[
+        (data['status']=='CANCELADO') &
+        (data['ano_saida'] != ' ')
+        ]
+    
+    data = data.groupby(by=['ano_saida','nome_unidade'])['status'].count()
+
+    return data.reset_index()

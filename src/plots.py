@@ -10,7 +10,7 @@ def BarplotDesistenciaAlunos(dataset):
             x = dataset['status'],
             y = dataset['nome_curso'],            
             marker=dict(
-                color="#f0be09"
+                color=" #8035fa"
             ),
         )
     )
