@@ -29,7 +29,7 @@ def Tab1():
     with col1:
         Unidade = col1.selectbox(
             label   = 'Unidade',
-            options = df.Localidades(),
+            options = df.Unidades(),
         )
 
         Genero = col1.checkbox(label='Por gễnero')
@@ -69,11 +69,30 @@ def Tab1():
 
 
 def Tab2():
-    st.plotly_chart(
-        pls.LinePlotSerieEvasãoPorUnidade(
-            df.SerieEvasãoPorUnidade()
-        )   
-    )
+    Unidade = st.checkbox('Por Unidade')
+
+    if (Unidade):
+        Unidades = st.multiselect('Selecione',options =df.Unidades())
+        
+        st.plotly_chart(
+            pls.LinePlotSerieEvasãoPorUnidade(
+                df.SerieEvasaoHistoricaPorUnidade(),
+                Unidades
+            )
+        )
+        st.plotly_chart(
+            pls.SerieEvasãoCursoTotais(df.SerieTotalDeEvasaoPorUnidade(Unidades))
+        )
+    else:
+     
+        st.plotly_chart(
+            pls.LinePlotSerieEvasãoSerieHistorica(
+                df.SerieEvasãoHistorica()
+            )   
+        )
+        print(df.SerieTotalDeEvasaoPorUnidade(df.Unidades()))
+        st.table(df.SerieTotalDeEvasaoPorUnidade(df.Unidades()))
+        
             
             
 if __name__ == '__main__':

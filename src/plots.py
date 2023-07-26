@@ -10,7 +10,7 @@ def BarplotDesistenciaAlunos(dataset):
             x = dataset['status'],
             y = dataset['nome_curso'],            
             marker=dict(
-                color=" #8035fa"
+                color="#8035fa"
             ),
         )
     )
@@ -134,13 +134,14 @@ def PiePlotIgressoDesistencia(dataset):
             names ='forma_ingresso',
             values= 'status'
         )
-    else:        
+    else: 
+               
         fig = px.sunburst(
             dataset,
-            path=['forma_ingresso','modalidade_considerada'],
-            values  ='status',
-            color='forma_ingresso',
-            title='Por forma de ingresso ou modalidade(a partir de 2019)'
+            path   =['forma_ingresso','modalidade_considerada'],
+            values ='status',
+            color  ='forma_ingresso',
+            title  ='Por forma de ingresso ou modalidade(a partir de 2019)'
         )
     return fig
 

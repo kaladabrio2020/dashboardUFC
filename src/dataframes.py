@@ -4,7 +4,7 @@ import pandas as pd
 def Dataset():
     return pd.read_csv(r'dataset/UFC.csv',sep=',',encoding='latin')
 
-def Localidades():
+def Unidades():
     return Dataset()['nome_unidade'].value_counts().index.to_list()
 
 
@@ -18,7 +18,7 @@ def TotalDeEvasaoPorUnidade(Unidade,Ano):
     ]
 
     data = data.groupby(
-        by='nome_curso'
+        by=['nome_curso']
     )['status'].count()
 
     return data.reset_index().sort_values(by='status')
@@ -58,7 +58,7 @@ def TotalDeEvasaoPorUnidadeModalidade(Unidade,Ano):
     return datac
 
 
-def SerieEvasãoPorUnidade():
+def SerieEvasãoHistorica():
     data = Dataset()
     data = data.loc[
         (data['status']=='CANCELADO') &
@@ -68,3 +68,31 @@ def SerieEvasãoPorUnidade():
     data = data.groupby(by=['ano_saida'])['status'].count()
 
     return data.reset_index()
+
+def SerieEvasaoHistoricaPorUnidade():
+    data =  Dataset()
+    
+    data = data.loc[
+        (data['status']=='CANCELADO') &
+        (data['ano_saida'] != ' ')
+        ]
+    
+    data = data.groupby(
+        by=['ano_saida','nome_unidade']
+        )['status'].count()
+    
+    return data.reset_index()
+
+def SerieTotalDeEvasaoPorUnidade(Unidade):
+    data = Dataset()
+
+    data = data.loc[
+    (data['nome_unidade'].isin(Unidade)  ) &
+    (data['status']       == 'CANCELADO')
+    ]
+
+    data = data.groupby(
+        by=['nome_curso']
+    )['status'].count()
+    
+    return data.reset_index().sort_values(by='status')[::-1]
