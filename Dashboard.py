@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 
 
 import src.plots as pl
+import src.plotSerie as pls
 import src.dataframes as df
 
 
@@ -17,7 +18,9 @@ def main():
     tab1,tab2  = st.tabs(['Dashboard Main','Serie Historica'])
 
     with tab1: Tab1()
-    with tab2: st.write('pi')
+    with tab2: Tab2()
+
+
 
 
 
@@ -65,7 +68,12 @@ def Tab1():
         )    
 
 
-
+def Tab2():
+    st.plotly_chart(
+        pls.LinePlotSerieEvasãoPorUnidade(
+            df.SerieEvasãoPorUnidade()
+        )   
+    )
             
             
 if __name__ == '__main__':
