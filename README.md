@@ -4,13 +4,11 @@
 ## Dados
    * Dados foram pegues no site da [Universidade Federal do Ceará (UFC)](https://dados.ufc.br/group/pessoas) 
 
-## Linguagem de programção
+## Ferramentas 
+[![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-orange?style=for-the-badge&logo=Jupyter)](https://jupyter.org/try)
+[![made-for-VSCode](https://img.shields.io/badge/Made%20for-VSCode-1f425f.svg)](https://code.visualstudio.com/)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
-## Cadastro
-![foto-exe](https://user-images.githubusercontent.com/76600121/221320695-86d009fd-bf5b-47e2-bfba-ec0d76c2ca01.png)
-1. Baixe [MYSQL](https://dev.mysql.com/downloads/) e crie Database chamada UFC                                                                                           
-2. Coloque o respectivos dados na janela cadastro e aperte o botao de importar 
-* OBS: O butão de importar ele ira pegar o dado UFC.CSV e colocar no serve MYSQL(usando pandas)
 ## Dashboard
 
 [video](https://github.com/kaladabrio2020/Dashboard-Streamlit/assets/76600121/9aa63458-30ce-4e3f-b5b0-db839a7712b8)
