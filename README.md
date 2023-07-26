@@ -13,6 +13,6 @@
 * OBS: O butão de importar ele ira pegar o dado UFC.CSV e colocar no serve MYSQL(usando pandas)
 ## Dashboard
 
-[video]()
+[video](https://github.com/kaladabrio2020/Dashboard-Streamlit/assets/76600121/9aa63458-30ce-4e3f-b5b0-db839a7712b8)
 ## DashBoard Versão antiga
 [video](https://user-images.githubusercontent.com/76600121/221320512-e9d3753b-2e95-451a-b155-a420abc6f11b.mp4)
