@@ -2,8 +2,13 @@
 
 # Evasão , Universidade Federal do Ceará
 ## Dados
-   * Dados foram pegues no site da [Universidade Federal do Ceará (UFC)](https://dados.ufc.br/group/pessoas) 
+   * Dados foram pegues no site da [Universidade Federal do Ceará (UFC)](https://dados.ufc.br/group/pessoas)
+     
+## Visualização de dados 
+Usando StreamLit ,Plotly junto com pandas para visualização de dados , com dashboard
 
+## Classificação
+* Com o tratamento dos dados , ocasionou um perda de dados assim afeitando a classificação dos alunos com status cancelados ou não
 ## Ferramentas 
 [![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-orange?style=for-the-badge&logo=Jupyter)](https://jupyter.org/try)
 [![made-for-VSCode](https://img.shields.io/badge/Made%20for-VSCode-1f425f.svg)](https://code.visualstudio.com/)
