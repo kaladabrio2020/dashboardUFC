@@ -1,0 +1,1 @@
+{"SerieHistoricaDesistencia": "\nSELECT uf.ano_saida, uf.status, count(*) FROM ufc AS uf\n    WHERE uf.status = 'Cancelado' AND uf.ano_saida !='xx'\nGROUP BY uf.ano_saida, uf.status;\n"}
