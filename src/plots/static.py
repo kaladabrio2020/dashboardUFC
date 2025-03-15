@@ -13,7 +13,7 @@ def SerieHistoricaDesistenciasPlot(data):
         )
     )
     fig.update_traces(
-        hovertemplate = '<b>Ano:%{x}<b><br>Desistencias:%{y}<br><extra></extra>',
+        hovertemplate = '<br>Cancelamentos:%{y}<br><extra></extra>',
         marker = dict(
             color = 'tomato'
         )
@@ -24,12 +24,16 @@ def SerieHistoricaDesistenciasPlot(data):
         template = 'simple_white',
         title    = dict(
             text = 'Série historica Cancelamento de Matricula',
+            font = dict(
+                weight="bold",   
+                size=16
+            ),
             automargin=True,
         ),
         xaxis = dict(
             nticks = 7,
             title = dict(
-                text=None
+                text=None, 
             )
         ),
         yaxis = dict(
@@ -39,7 +43,7 @@ def SerieHistoricaDesistenciasPlot(data):
             gridcolor = 'black',
             linecolor = 'white',
             title = dict(
-                text = 'Quantidade' 
+                text = 'Quantidade'
             )
         ),
         margin = dict(
@@ -48,6 +52,9 @@ def SerieHistoricaDesistenciasPlot(data):
             t = 20,
         ),
         height = 350,
+        font = dict(
+            family="Inter, sans-serif",
+        )
         
     )
     return fig
@@ -82,7 +89,9 @@ def FormaDeEntradaPlot(data):
         title    = dict(
             text = 'Distribuição de Status por Forma de Ingresso',
             font = dict(
-                size = 14
+                size = 16,
+                family="Inter, sans-serif",
+                weight="bold"   
             ),
             automargin=True,
         ),
@@ -117,6 +126,9 @@ def FormaDeEntradaPlot(data):
             b = 10,
             l = 0 ,
             t = 50
+        ),
+        font = dict(
+            family="Inter, sans-serif",
         )
     )
     return fig
@@ -143,6 +155,7 @@ def PorSexoPlot(data):
         )
     )
     fig.update_layout(
+        dragmode = False,
         height = 300,
         template = 'simple_white',
         uniformtext=dict(
@@ -157,7 +170,9 @@ def PorSexoPlot(data):
         title = dict(
             text = 'Proporção por sexo e Forma de ingresso',
             font = dict(
-                size = 14
+                size=16,
+                family="Inter, sans-serif",
+                weight="bold"   
             ),
             automargin=True
         ),
@@ -168,6 +183,9 @@ def PorSexoPlot(data):
                 size = 12
             ),
             align = 'right',
+        ),
+        font = dict(
+            family="Inter, sans-serif",
         )
     )
     return fig
@@ -194,7 +212,11 @@ def MediaAprovadosPlot(data):
 
             )
         )
+    fig.update_traces(
+        hovertemplate = '%{meta[0]}<br>Quantidade:%{y}<br><extra></extra>',
+    )
     fig.update_layout(
+        dragmode = False,
         height = 300,
         template = 'simple_white',
         uniformtext=dict(
@@ -207,14 +229,21 @@ def MediaAprovadosPlot(data):
             t = 50
         ),
         title = dict(
-            text = 'Media Tempo de Forma de ingresso',
+            text = 'Média Tempo de Forma de ingresso',
             font = dict(
-                size = 14
+                size=16,
+                family="Inter, sans-serif",
+                weight="bold"  
             ),
             automargin=True
         ),
         yaxis = dict(
             visible = False
+        ),
+        legend = dict(
+            font = dict(
+                size = 10
+            )  
         ),
         barmode='stack',
         hovermode = 'x unified',
@@ -224,6 +253,188 @@ def MediaAprovadosPlot(data):
                 size = 12
             ),
             align = 'right',
+        ),
+        font = dict(
+            family="Inter, sans-serif",
+        )
+    )
+    return fig
+
+
+
+def CancelamentoMatricularPlot(data):
+    fig = go.Figure()
+
+    for name_ in data['modalidade_considerada'].unique():
+        subset = data[data['modalidade_considerada'] == name_].sort_values(by='ano_saida')
+        meta_  = subset['nome_mobilidadade_considerada'].unique()[0] 
+        fig.add_trace(
+            go.Scatter(
+                x = subset['ano_saida'],
+                y = subset['count'],
+                mode = 'lines',
+                name = name_,
+                meta = [meta_, name_],
+            )
+        )
+    fig.update_traces(
+        hovertemplate = '<b>%{meta[0]} (%{meta[1]})<b> - %{y}<extra></extra>',
+        hoverlabel = dict(
+            font = dict(
+                size = 16
+            )
+        )
+    )
+    
+    fig.update_layout(
+        height = 350,
+        hovermode = 'x unified',
+        template = 'simple_white',
+        margin = dict(
+            r = 20,
+            b = 10,
+            l = 20,
+            t = 50
+        ),
+        title = dict(
+            text = 'Cancelamento Matriculas por Modalidade dos anos 2017 à 2023',
+            font = dict(
+                size=14,
+                family="Inter, sans-serif",
+                weight="bold"  
+            ),
+            automargin=True
+        ),
+        yaxis = dict(
+            showgrid = True
+        ),
+        legend = dict(
+            font = dict(
+                size = 12
+            ),
+            borderwidth = 0,
+            orientation = 'h',
+            yanchor = 'top',
+            xanchor = 'left',
+            y = 1
+        ),
+        font = dict(
+            family="Inter, sans-serif",
+        )
+    )
+    return fig
+
+
+def RelacaoAnoEntradaSaidaPlot(data):
+    fig = go.Figure()
+    order=['No mesmo ano', 'Primeiro ano', 'Segundo ano', 'Terceiro ano', 'Quarto ano', 'Quinto ano', 'Sexto ano']   
+    colors = px.colors.qualitative.Dark24[0:10]
+
+    for name_, c in zip(data['modalidade_considerada'].unique(), colors):
+        subset = data[data['modalidade_considerada'] == name_]
+        meta_  = subset['nome_mobilidadade_considerada'].unique()[0]
+        fig.add_trace(
+            go.Bar(
+                x = subset['ano_de_cancelamento'],
+                y = subset['count'],
+                name = name_,
+                meta = [meta_],
+                marker = dict(
+                    color = c
+                )
+            )
+        )
+    fig.update_traces(
+        hovertemplate = '<extra></extra>%{meta[0]}<br> <b>%{y}</b>',
+        hoverlabel = dict(
+            font = dict(
+                size =14
+            )
+
+        )
+    )
+ 
+    fig.update_layout(
+        height = 350,
+        dragmode = False,
+        hovermode = 'x unified',
+        template = 'simple_white',
+        xaxis = dict(
+            categoryorder='array', 
+            categoryarray=list(order)
+        ),
+        yaxis = dict(
+            showgrid = True
+        ),
+        margin = dict(
+            r = 10,
+            b = 10,
+            l = 10,
+            t = 50
+        ),
+        title = dict(
+            text = 'Relação entre Ano de Entrada e Ano de Saida',
+            font = dict(
+                size=14,
+                family="Inter, sans-serif",
+                weight="bold"
+            ),
+            automargin=True
+        ),
+        legend = dict(
+            y = 1,
+            x = 0.85,
+            title = dict(
+                text = 'Modalidade',
+            )
+        ),
+        font = dict(
+            family="Inter, sans-serif",
+        )
+    )
+    return fig
+       
+
+def TaxaCancelamentoPlot(data):
+    fig = go.Figure(
+        go.Table(
+            header = dict(
+                values = ['Curso', 'Taxa de Cancelamento'],
+                line_color = '#732c2c',
+                fill_color = '#732c2c',
+                align = ['left', 'left'],
+                font = dict(color = 'white', size = 14),
+                height = 30
+            ),
+            cells = dict(
+                values = [data['nome_curso'], data['taxa_cancelamento']],
+                line_color = '#732c2c',
+                fill_color = 'white',
+                font = dict(color = 'black', size = 14),
+                align = ['left', 'left'],
+            ),
+        )
+    )
+    fig.update_layout(
+        height = 350,
+        margin = dict(
+            l = 5,
+            r = 5,
+            t = 30,
+            b = 0
+        ),
+        title = dict(
+            text = 'Top 8 Cursos com Taxa de Cancelamento',
+            font = dict(
+                size=16,
+                color='black',
+                family="Inter, sans-serif",
+                weight="bold"
+            ),
+            automargin=True
+        ),
+        font = dict(
+            family="Inter, sans-serif",
         )
     )
     return fig

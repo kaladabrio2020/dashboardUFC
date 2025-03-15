@@ -58,3 +58,29 @@ def MediaAprovados(anos = [2010, 2010], status = ['Cancelado', 'Ativo','Concluí
         sql = sql.replace(f'{c_[e]}', f'{i}')
 
     return pd.read_sql_query(sql, engine)
+
+
+def TaxaCancelamento(anos=[2010, 2023], modo_entrada = ['VESTIBULAR', 'SISU']):
+    with open('json/queries.json', 'r', encoding='utf-8') as f:
+        queries = json.load(f)
+
+    sql = queries['TaxaCancelados']
+    sql = sql.replace('ano1_', str(anos[0])).replace('ano2_', str(anos[1]))
+    
+    c_ = ['c1', 'c2']
+    for e, i in enumerate(modo_entrada):
+        sql = sql.replace(f'{c_[e]}', f'{i}')
+    return pd.read_sql_query(sql, engine)
+
+
+def CancelamentoMatricular():
+    with open('json/queries.json', 'r', encoding='utf-8') as f:
+        queries = json.load(f)
+    sql = queries['CancelamentoMatricularModalidade']
+    return pd.read_sql_query(sql, engine)
+
+def RelacaoAnoEntradaSaida():
+    with open('json/queries.json', 'r', encoding='utf-8') as f:
+        queries = json.load(f)
+    sql = queries['TempoCancelamento']
+    return pd.read_sql_query(sql, engine)
