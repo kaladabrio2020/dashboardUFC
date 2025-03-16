@@ -2,7 +2,6 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-
 def SerieHistoricaDesistenciasPlot(data):
     fig = go.Figure(
         go.Scatter(
@@ -49,13 +48,85 @@ def SerieHistoricaDesistenciasPlot(data):
         margin = dict(
             r = 20,
             b = 20,
-            t = 20,
+            t = 50,
+            l = 0
         ),
         height = 350,
         font = dict(
             family="Inter, sans-serif",
         )
         
+    )
+    return fig
+
+def SerieHistoricaTootipsPlot(data, year):
+    fig = go.Figure(
+        go.Bar(
+            y = data['nome_unidade'][::-1],
+            x = data['count'][::-1],
+            text = data['count'][::-1],
+            textfont = dict(
+                size  =12,
+                color = ['black']*4+['white'],
+                weight="bold"  
+            ),
+            orientation='h',
+            width=0.45
+        )
+    )
+    fig.update_traces(
+        marker = dict(
+            color = ['lightblue'] * 4 + ['tomato']
+        ),
+    )
+    fig.update_layout(
+        hovermode =False,
+        height = 350,
+        xaxis = dict(
+            visible=False  
+        ),
+        title = dict(
+            text = f'Top 5 Unidade no Ano {year}',
+            automargin = True,
+            font  = dict(
+                size=16,
+                family="Inter, sans-serif",
+                weight="bold"  
+            ),
+            y = 1,
+            x = 0.5
+        ),
+
+        yaxis = dict(
+            anchor = 'free',
+            position = 0.0,
+            automargin=True,
+            showline = False,
+            ticklabelposition = 'inside',
+            tickvals=[0.35, 1.35, 2.35, 3.35, 4.35],
+            side = 'top',
+            color = 'black',
+            tickfont = dict(
+                size = 12,
+                weight='bold'
+            )
+        ),
+        margin = dict(
+            l = 5,
+            r = 5,
+            t = 50,
+            b = 0
+        ),
+
+        font = dict(
+            color = 'black',
+            family="Inter, sans-serif",
+        ),
+        dragmode =False,
+        bargap=1,
+        bargroupgap=0.9,
+        barcornerradius=15,
+        plot_bgcolor = 'white'
     )
     return fig
 

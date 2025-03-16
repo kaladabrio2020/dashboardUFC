@@ -6,6 +6,12 @@ dicionario = {
 SELECT uf.ano_saida, uf.status, count(*) FROM ufc AS uf
     WHERE uf.status = 'Cancelado' AND uf.ano_saida !='xx'
 GROUP BY uf.ano_saida, uf.status;
+''','TootipsSerieHistoricaDesistencia':'''
+SELECT uf.nome_unidade, count(*) FROM ufc AS uf
+    WHERE uf.status = 'Cancelado' AND uf.ano_saida !='xx' AND CAST(uf.ano_saida AS INT) = ano1 
+GROUP BY uf.ano_saida, uf.nome_unidade 
+ORDER BY count DESC
+LIMIT 5;
 ''',
     'Forma de entrada':'''
 SELECT u.status, u.forma_ingresso, count(*) FROM ufc AS u

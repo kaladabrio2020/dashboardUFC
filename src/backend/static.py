@@ -14,6 +14,28 @@ def SerieHistoricaDesistencias():
     return pd.read_sql(sql, engine)
 
 
+def SerieHistoricaTootips(ano):
+    with open('json/queries.json', 'r', encoding='utf-8') as f:
+        queries = json.load(f)
+
+    sql = queries['TootipsSerieHistoricaDesistencia']
+    sql = sql.replace('ano1', str(ano))
+
+    data = pd.read_sql(sql, engine)
+
+    data['nome_unidade'] = data['nome_unidade'].str.lower()
+    data['nome_unidade'] = data['nome_unidade'].str.replace(
+        'campus da ufc de', '', regex=False
+    ).str.replace(
+        'campus da ufc em', '', regex=False
+    ).str.replace(
+        'campus da ufc no', '', regex=False
+    ).str.replace(
+        '_',''
+    ).str.title()
+    return data
+
+
 def FormaDeEntrada(anos = [2010, 2010], status = ['Cancelado', 'Ativo','Concluído', 'Trancado'], modo_entrada = ['VESTIBULAR', 'SISU']):
     with open('json//queries.json', 'r', encoding='utf-8') as f:
         queries = json.load(f)

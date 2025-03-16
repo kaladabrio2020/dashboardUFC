@@ -2,16 +2,19 @@ from dash import Dash, dcc, _dash_renderer,html, callback, Input, Output
 
 from  src.backend.static import (
     SerieHistoricaDesistencias,
+    SerieHistoricaTootips,
     FormaDeEntrada,
     PorSexo,
     MediaAprovados,
     CancelamentoMatricular,
     RelacaoAnoEntradaSaida,
-    TaxaCancelamento
+    TaxaCancelamento,
+
 )
 
 from src.plots.static import (
     SerieHistoricaDesistenciasPlot,
+    SerieHistoricaTootipsPlot,
     FormaDeEntradaPlot,
     PorSexoPlot,
     MediaAprovadosPlot,
@@ -40,6 +43,10 @@ figS = SerieHistoricaDesistenciasPlot(SerieHistoricaDesistencias())
 
 figCota = CancelamentoMatricularPlot(CancelamentoMatricular())
 figBarCota = RelacaoAnoEntradaSaidaPlot(RelacaoAnoEntradaSaida())
+
+
+figBarH = SerieHistoricaTootipsPlot(SerieHistoricaTootips(1980), 1980)
+
 configs = {'displaylogo': False, 'displayModeBar':False}
 
 
@@ -151,8 +158,15 @@ app.layout = dmc.MantineProvider([
             dmc.TabsPanel([
                 dmc.Grid([
                     dmc.GridCol([
-                        dmc.Paper(dcc.Graph(figure=figS,  config= {'displaylogo': False}),p="xs", shadow="xl", mt="md", withBorder=True)
-                    ], span=12)
+                        dmc.Paper([
+                            dcc.Graph(id="graph-3", figure=figS,  config=configs),
+                        ],p="xs", shadow="xl", mt="md", withBorder=True)
+                    ], span=8),
+                    dmc.GridCol([
+                        dmc.Paper([
+                            dcc.Graph(id="graph-4", config=configs),
+                        ],p="xs", shadow="xl", mt="md", withBorder=True)
+                    ], span=4)
                 ])
             ], value='serie-historica'),
             dmc.TabsPanel([
@@ -209,6 +223,26 @@ def update_graph13(ano_slider_name, status_select_name, modo_entrada_select_name
 def update_table(ano_slider_name, modo_entrada_select_name):
     return TaxaCancelamentoPlot(TaxaCancelamento(ano_slider_name, modo_entrada_select_name))
 
+
+
+@app.callback(
+    Output(component_id='graph-4', component_property='figure'),
+    Input("graph-3", "hoverData"),
+)
+def tooltip(hoverData):
+
+    if hoverData is None:
+        return figBarH
+
+    try:    
+        point = hoverData["points"][0] 
+
+        if int(point['x']) <= 1980: return figBarH
+        data = SerieHistoricaTootips(point['x'])
+        fig  = SerieHistoricaTootipsPlot(data, point['x'])
+        return fig
+    except Exception as e:        
+        return figBarH
 
 
 if __name__ == '__main__':app.run_server(debug=True)
