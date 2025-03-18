@@ -28,7 +28,7 @@ import dash_mantine_components as dmc
 _dash_renderer._set_react_version('18.2.0')
 
 
-app = Dash(__name__, external_stylesheets=[dmc.styles.ALL])
+app = Dash(__name__, title="Dashboard Universidade Federal do Ceará", external_stylesheets=[dmc.styles.ALL])
 #---------------------
 from nbconvert import HTMLExporter
 

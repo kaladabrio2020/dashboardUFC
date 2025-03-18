@@ -22,7 +22,7 @@ def SerieHistoricaDesistenciasPlot(data):
         hovermode = 'x unified',
         template = 'simple_white',
         title    = dict(
-            text = 'Série historica Cancelamento de Matricula',
+            text = 'Série historica Cancelamento de Matricula(CM)',
             font = dict(
                 weight="bold",   
                 size=16
@@ -86,7 +86,7 @@ def SerieHistoricaTootipsPlot(data, year):
             visible=False  
         ),
         title = dict(
-            text = f'Top 5 Unidade no Ano {year}',
+            text = f'Top 5 unidade com mais CM no ano {year}',
             automargin = True,
             font  = dict(
                 size=16,
@@ -444,7 +444,7 @@ def RelacaoAnoEntradaSaidaPlot(data):
             t = 50
         ),
         title = dict(
-            text = 'Relação entre Ano de Entrada e Ano de Saida',
+            text = 'Relação entre Forma de ingresso e ano de saída',
             font = dict(
                 size=14,
                 family="Inter, sans-serif",
