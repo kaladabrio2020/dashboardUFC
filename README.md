@@ -33,7 +33,7 @@ Durante o processo de tratamento dos dados, houve uma perda significativa de inf
 
 Confira o vídeo demonstrativo do dashboard interativo:
 
-[![Dashboard Demo](https://img.shields.io/badge/Video-Dashboard_Demo-blue)](https://github.com/kaladabrio2020/Dashboard-Streamlit/assets/76600121/9aa63458-30ce-4e3f-b5b0-db839a7712b8)
+[![Dashboard Demo](https://img.shields.io/badge/Video-Dashboard_Demo-blue)](https://github.com/user-attachments/assets/45d391f6-3896-4f24-b58b-051037613299)
 
 ### Versão Antiga do Dashboard
 
